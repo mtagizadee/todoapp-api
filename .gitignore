@@ -14,6 +14,13 @@ lerna-debug.log*
 # OS
 .DS_Store
 
+# ides
+.idea
+.vscode
+
+# image storage
+/storage
+
 # Tests
 /coverage
 /.nyc_output
