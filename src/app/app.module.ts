@@ -4,6 +4,7 @@ import { PrismaModule } from "../prisma/prisma.module";
 import { UsersModule } from "../users/users.module";
 import { AuthModule } from "../auth/auth.module";
 import { SessionModule } from "../session/session.module";
+import { TodosModule } from "../todos/todos.module";
 
 @Module({
   imports: [
@@ -11,7 +12,8 @@ import { SessionModule } from "../session/session.module";
       envFilePath: '.env'
     }),
     PrismaModule, UsersModule,
-    AuthModule, SessionModule
+    AuthModule, SessionModule,
+    TodosModule
   ]
 })
 export class AppModule {}
