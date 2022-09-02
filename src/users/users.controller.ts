@@ -1,4 +1,4 @@
-import { Controller, Get, Param, ParseIntPipe } from "@nestjs/common";
+import { Controller, Get, NotFoundException, Param, ParseIntPipe } from "@nestjs/common";
 import { UsersService } from "./users.service";
 
 @Controller('users')
@@ -7,6 +7,8 @@ export class UsersController {
 
   @Get(':id')
   async findOneById(@Param('id', ParseIntPipe) id: number) {
-    return await this.service.findOneById(id);
+    const user = await this.service.findOne({ id });
+    if (!user) throw new NotFoundException('User is not found.')
+    return { status: 200, user }
   }
 }
