@@ -18,6 +18,9 @@ lerna-debug.log*
 .idea
 .vscode
 
+# environment
+.env
+
 # image storage
 /storage
 
