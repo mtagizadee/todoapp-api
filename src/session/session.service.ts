@@ -37,4 +37,8 @@ export class SessionService {
       }
     }
   }
+
+  async delete(where: Prisma.SessionWhereUniqueInput) {
+    return await this.prisma.session.delete({ where });
+  }
 }
