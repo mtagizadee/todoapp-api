@@ -11,7 +11,7 @@ export class UsersService {
 
   async findOne(where: Prisma.UserWhereUniqueInput, select?: Prisma.UserSelect) {
     const user = await this.prisma.user.findUnique({ where, include: {
-      todos: true
+      todo: true
     }});
     delete user?.password;
     return user;
