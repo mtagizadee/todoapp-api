@@ -15,18 +15,23 @@ export class AuthService {
   ) {}
 
   async login(dto: LoginUserDto) {
-      const user = await this.userService.findOne({ email: dto.email });
-      if (!user) throw new NotFoundException('User does not exist.')
-
-      const isPasswordCorrect = await argon.verify(user.password, dto.password);
-      if (!isPasswordCorrect) throw new ForbiddenException('Provided password is incorrect');
-
-      try {
-        const session = await this.sessionService.create(user.id);
-        return session.token;
-      } catch (error) {
-        throw error;
+    const user = await this.prisma.user.findUnique({
+      where: {
+        email: dto.email
       }
+    });
+    if (!user) throw new NotFoundException('User does not exist.')
+
+    const isPasswordCorrect = await argon.verify(user.password, dto.password);
+    if (!isPasswordCorrect) throw new ForbiddenException('Provided password is incorrect');
+
+
+    try {
+      const session = await this.sessionService.create(user.id);
+      return session.token;
+    } catch (error) {
+      throw error;
+    }
   }
 
   async signup(dto: CreateUserDto) {

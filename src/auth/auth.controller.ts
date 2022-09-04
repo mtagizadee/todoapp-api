@@ -24,6 +24,6 @@ export class AuthController {
   @UseGuards(AuthGuard)
   @Get('current-user')
   getCurrentUser(@CurrentUser() user) {
-    return user;
+    return { status: 200, user };
   }
 }
