@@ -16,23 +16,24 @@ import { TodosService } from "./todos.service";
 import { CreateTodoDto } from "./dto/create-todo.dto";
 import { UpdateTodoDto } from "./dto/update-todo.dto";
 
-@UseGuards(AuthGuard)
 @Controller('todos')
 export class TodosController {
   constructor(private readonly service: TodosService) {}
 
-  @Get()
-  async findMany(@CurrentUser('id') userId: number) {
+  @Get(':id')
+  async findMany(@Param('id',ParseIntPipe) userId: number) {
     const todos = await this.service.findMany(userId);
     return { status: 200, todos }
   }
 
+  @UseGuards(AuthGuard)
   @Post()
   async create(@CurrentUser('id') userId: number, @Body() dto: CreateTodoDto) {
     const todo = await this.service.create(userId,dto);
     return { status: 200, todo }
   }
 
+  @UseGuards(AuthGuard)
   @Put(':id')
   async update(
     @CurrentUser('id') userId: number,
@@ -45,6 +46,7 @@ export class TodosController {
     return { status: 200, todo }
   }
 
+  @UseGuards(AuthGuard)
   @Delete(':id')
   async delete(
     @CurrentUser('id') userId: number,

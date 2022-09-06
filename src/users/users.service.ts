@@ -10,9 +10,7 @@ export class UsersService {
   constructor(private readonly prisma: PrismaService) {}
 
   async findOne(where: Prisma.UserWhereUniqueInput, select?: Prisma.UserSelect) {
-    const user = await this.prisma.user.findUnique({ where, include: {
-      todo: true
-    }});
+    const user = await this.prisma.user.findUnique({ where });
     delete user?.password;
     return user;
   }
